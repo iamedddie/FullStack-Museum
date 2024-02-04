@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  Museum-Backend:
+    build:
+      context: ./museum-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - Museum-Frontend
+    image: museum-project-backend  # Change this line to lowercase
+
+  Museum-Frontend:
+    build:
+      context: ./Museum-Frontend
+    volumes:
+      - ./react-app:/app
+    ports:
+      - "3000:3000"
+    image: museum-project-frontend  # Change this line to lowercase
+
+  mysql-db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: some_pass
+      MYSQL_DATABASE: dockerdb
+      MYSQL_USER: springuser2
+      MYSQL_PASSWORD: springuser2
+    ports:
+      - "3306:3306"
